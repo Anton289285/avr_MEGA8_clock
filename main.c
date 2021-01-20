@@ -2,14 +2,19 @@
 #include <avr/interrupt.h>
 
 
-#ifndef LIBRARY
-	#define LIBRARY
-	#include "library.h"
+#ifndef COMMON_LIBRARY
+	#define COMMON_LIBRARY
+	#include "common_library.h"
 #endif
 
 #ifndef INIT_LIBRARY
 	#define INIT_LIBRARY
 	#include "init_library.h"
+#endif
+
+#ifndef BUTTON_HANDLER_LIBRARY
+    #define BUTTON_HANDLER_LIBRARY
+    #include "button_handler_library.h"
 #endif
 	
 unsigned char seconds = 0;
@@ -85,9 +90,10 @@ void main(void) {
     translate_minuts_to_segment(minuts, link_to_array_digit);
     translate_hours_to_segment(hours, link_to_array_digit);
 	sei();
+
 	while (1) {
         if ((PINC & menu_button) == 0b00000000) {
-            button_1_handler(link_to_seconds, link_to_minuts,
+            button_menu_handler(link_to_seconds, link_to_minuts,
                                 link_to_hours, link_to_array_digit);
         }
 	};
